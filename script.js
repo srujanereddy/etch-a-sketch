@@ -1,6 +1,15 @@
 const container = document.querySelector(".container");
 const text = document.querySelector("p");
 
+function generateRandomColor(){
+    let string = "0123456789abcdef";
+    let color ="#";
+    for(let i=0;i<6;i++){
+        color += string[Math.floor(Math.random()*16)];
+    }
+    return color;
+}
+
 function createGrid(size){
     container.innerHTML="";
     if(isNaN(size) || size<=0 || size>100){
@@ -17,9 +26,13 @@ function createGrid(size){
                 let rowDiv = document.createElement("div");
                 rowDiv.setAttribute("class","row-div");
                 columnDiv.appendChild(rowDiv);
-
+                rowDiv.style.opacity=0.3;
                 rowDiv.addEventListener("mouseover", () => {
-                    rowDiv.style.backgroundColor="#00B4D8";
+                    rowDiv.style.backgroundColor=generateRandomColor();
+                    let opacity = parseFloat(rowDiv.style.opacity);
+                    if(opacity<1)
+                        opacity+=0.1;
+                    rowDiv.style.opacity=opacity;
                 });
             }
         }
